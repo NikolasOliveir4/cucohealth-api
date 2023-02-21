@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ClienteController extends Controller
 {
  
-    public function listar()
+    public function listAll()
     {
         $clientes = Cliente::all();
 
@@ -41,7 +41,7 @@ class ClienteController extends Controller
     //     }
     // }
 
-    public function criar(Request $comand){
+    public function create(Request $comand){
 
         try {
             $cliente = Cliente::create($comand->all());
@@ -57,7 +57,7 @@ class ClienteController extends Controller
         }
     }
     
-    public function editar(Request $comand, Cliente $id){
+    public function update(Request $comand, Cliente $id){
 
         try {
             $id->update($comand->all());
@@ -73,7 +73,7 @@ class ClienteController extends Controller
         }
     }
 
-    public function deletar(Request $comand, Cliente $id){
+    public function delete(Request $comand, Cliente $id){
 
         try {
             $id->delete();
@@ -84,6 +84,33 @@ class ClienteController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Erro ao deletar cliente',
+                'error' => $th
+            ],401);
+        }
+    }
+
+    public function search(Request $comand, Cliente $cliente){
+
+        
+        try {
+            $query = $comand->q;
+            $queryIsNumeric = is_numeric($query);
+
+            if($queryIsNumeric){
+                $clientes = Cliente::where('cpf_cnpj', 'like', "%{$query}%")->get();
+            }else{
+                $clientes = Cliente::where('nome', 'like', "%{$query}%")->get();
+            }
+            // $query = Cliente::whereRaw('nome LIKE "ni%"')->get();
+            // $binds = $clientes->getBindings();
+           
+        return response()->json([
+            'message' => 'Sucesso!',
+            'clientes' => $clientes
+        ],200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Erro ao procurar cliente',
                 'error' => $th
             ],401);
         }
