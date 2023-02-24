@@ -13,10 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 Route::prefix('clientes')->group(function () {
     Route::get('','ClienteController@listAll');
     Route::post('','ClienteController@create');
     Route::put('/{id}','ClienteController@update');
-    Route::delete('/{id}','ClienteController@delete');
+    Route::put('delete/{id}','ClienteController@delete');
     Route::get('search','ClienteController@search');
+    Route::get('cpfcnpj','ClienteController@searchCpfCnpj');
     });

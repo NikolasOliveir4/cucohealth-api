@@ -10,7 +10,7 @@ class ClienteController extends Controller
  
     public function listAll()
     {
-        $clientes = Cliente::all();
+        $clientes = Cliente::where('inativo',null)->orWhere('inativo',0)->get();
 
         return response()->json([
             'message' => 'Listado com sucesso',
@@ -21,12 +21,12 @@ class ClienteController extends Controller
     // public function inserir(){
     //     try {
     //         $cliente = Cliente::create([
-    //             'nome' => 'Nikolas Oliveira'
-    //             ,'data_nascimento'=> '2000-09-06 00:00:00'
-    //             ,'cpf_cnpj' => '01810777283'
+    //             'nome' => 'Bruno Chaves'
+    //             ,'data_nascimento'=> '1996-04-08 00:00:00'
+    //             ,'cpf_cnpj' => '15562941074'
     //             ,'tipo' => 0
-    //             ,'email' => 'nikolas_081@hotmail.com'
-    //             ,'telefone'=>'+5598982573662'
+    //             ,'email' => 'bruno_chaves@hotmail.com'
+    //             ,'telefone'=>'+5598987792435'
     //         ]);
     
     //         return response()->json([
@@ -45,10 +45,7 @@ class ClienteController extends Controller
 
         try {
             $cliente = Cliente::create($comand->all());
-        return response()->json([
-            'message' => 'Cliente inserido com sucesso',
-            'clientes' => $cliente
-        ],200);
+        return $this->listAll();
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Erro ao inserir cliente',
@@ -61,10 +58,11 @@ class ClienteController extends Controller
 
         try {
             $id->update($comand->all());
-        return response()->json([
-            'message' => 'Cliente atualizado com sucesso',
-            'clientes' => $id
-        ],200);
+            return $this->listAll();
+        // return response()->json([
+        //     'message' => 'Cliente atualizado com sucesso',
+        //     'clientes' => $id
+        // ],200);
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Erro ao atualizar cliente',
@@ -76,7 +74,7 @@ class ClienteController extends Controller
     public function delete(Request $comand, Cliente $id){
 
         try {
-            $id->delete();
+            $id->update(['inativo'=> 1]);
         return response()->json([
             'message' => 'Cliente deletado com sucesso',
             'clientes' => $id
@@ -89,7 +87,7 @@ class ClienteController extends Controller
         }
     }
 
-    public function search(Request $comand, Cliente $cliente){
+    public function search(Request $comand){
 
         
         try {
@@ -97,9 +95,9 @@ class ClienteController extends Controller
             $queryIsNumeric = is_numeric($query);
 
             if($queryIsNumeric){
-                $clientes = Cliente::where('cpf_cnpj', 'like', "%{$query}%")->get();
+                $clientes = Cliente::where('cpf_cnpj', 'like', "%{$query}%")->where('inativo',null)->orWhere('inativo',0)->get();
             }else{
-                $clientes = Cliente::where('nome', 'like', "%{$query}%")->get();
+                $clientes = Cliente::where('nome', 'like', "%{$query}%")->where('inativo',null)->orWhere('inativo',0)->get();
             }
             // $query = Cliente::whereRaw('nome LIKE "ni%"')->get();
             // $binds = $clientes->getBindings();
@@ -111,6 +109,35 @@ class ClienteController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Erro ao procurar cliente',
+                'error' => $th
+            ],401);
+        }
+    }
+
+    public function searchCpfCnpj(Request $comand){
+
+        
+        try {
+            $query = $comand->q;
+            $queryIsNumeric = is_numeric($query);
+
+            if($queryIsNumeric){
+                $clientes = Cliente::where('cpf_cnpj', '=', "{$query}")->get();
+            }
+            // $query = Cliente::whereRaw('nome LIKE "ni%"')->get();
+            // $binds = $clientes->getBindings();
+        if(count($clientes) > 0){
+            $message = ' Já cadastrado!';
+        }else{
+            $message = ' Válido!';
+        }
+        return response()->json([
+            'message' => $message,
+            'clientes' => $clientes
+        ],200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Erro na consulta',
                 'error' => $th
             ],401);
         }

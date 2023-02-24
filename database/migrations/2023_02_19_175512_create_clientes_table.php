@@ -21,6 +21,7 @@ class CreateClientesTable extends Migration
             $table->integer('tipo')->nullable(false);
             $table->string('email')->nullable(false);
             $table->string('telefone');
+            $table->integer('inativo');
             $table->timestamps();
         });
     }

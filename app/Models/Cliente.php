@@ -15,5 +15,6 @@ class Cliente extends Model
         ,'tipo'
         ,'email'
         ,'telefone'
+        ,'inativo'
     ];
 }
