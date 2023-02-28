@@ -1,0 +1,259 @@
+{
+	"info": {
+		"_postman_id": "19af4fcc-5661-441b-a755-845b54661268",
+		"name": "CucoHealth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24610932"
+	},
+	"item": [
+		{
+			"name": "Get all clients",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "formlogin",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "formsenha",
+							"value": "123456",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/clientes",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create client",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "nome",
+							"value": "Afonso Babid",
+							"type": "text"
+						},
+						{
+							"key": "data_nascimento",
+							"value": "1998-11-04",
+							"type": "text"
+						},
+						{
+							"key": "cpf_cnpj",
+							"value": "15562941074",
+							"type": "text"
+						},
+						{
+							"key": "tipo",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "afonso@babid.com",
+							"type": "text"
+						},
+						{
+							"key": "telefone",
+							"value": "98982573662",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/clientes",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update client",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "nome",
+							"value": "Fabio Teste",
+							"type": "text"
+						},
+						{
+							"key": "data_nascimento",
+							"value": "2000-09-06",
+							"type": "text"
+						},
+						{
+							"key": "cpf_cnpj",
+							"value": "59099300018423",
+							"type": "text"
+						},
+						{
+							"key": "tipo",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "nikolas_081@hotmail.com",
+							"type": "text"
+						},
+						{
+							"key": "telefone",
+							"value": "5598982573662",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/clientes/{{ID_CLIENT}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"clientes",
+						"{{ID_CLIENT}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete client",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/clientes/delete/{{ID_CLIENT}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"clientes",
+						"delete",
+						"{{ID_CLIENT}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search for name or cpf/cnpj",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/clientes/search?q={{SEARCH}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"clientes",
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{{SEARCH}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search for cpf/cnpj registered in Clients",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/clientes/cpfcnpj?q={{CPFCNPJ}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"clientes",
+						"cpfcnpj"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{{CPFCNPJ}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "ID_CLIENT",
+			"value": "15",
+			"type": "string"
+		},
+		{
+			"key": "SEARCH",
+			"value": "Julio Teste",
+			"type": "string"
+		},
+		{
+			"key": "CPFCNPJ",
+			"value": "01810777283",
+			"type": "string"
+		}
+	]
+}
