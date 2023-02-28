@@ -33,11 +33,17 @@ será necessário a instalação do Xamp:
 
 DB_CONNECTION=mysql.  
 DB_HOST=127.0.0.1.  
-DB_PORT=<porta escolhida no xampp>  
-DB_DATABASE= <nome do banco de dados>  
+DB_PORT=<numero-da-porta>  
+DB_DATABASE= <nome-do-banco-de-dados>  
 DB_USERNAME=root  
 DB_PASSWORD=  
 
+### Para ambiente de desenvolvimento:
+
+```bash
+cd <pasta-da-api>
+php artisan serve
+```
 
 _Após os comandos, o projeto estará rodando na porta declarada no arquivo **.env** (http://localhost:<numero-da-porta>)_
 
@@ -48,3 +54,5 @@ _Após os comandos, o projeto estará rodando na porta declarada no arquivo **.e
 Imagens e paleta de cores pegadas do site da [CucoHealth](https://cucohealth.com/)
 
 Teste feito por Níkolas Oliveira.
+
+quaisquer dúvidas, entrar em contato via email: nikolas_081@hotmail.com
