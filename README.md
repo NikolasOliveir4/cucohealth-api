@@ -48,3 +48,5 @@ _Após os comandos, o projeto estará rodando na porta declarada no arquivo **.e
 Imagens e paleta de cores pegadas do site da [CucoHealth](https://cucohealth.com/)
 
 Teste feito por Níkolas Oliveira.
+
+quaisquer dúvidas, entrar em contato via email: nikolas_081@hotmail.com
